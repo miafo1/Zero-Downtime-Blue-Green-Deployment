@@ -6,7 +6,8 @@
       "version": "latest",
       "enableNonRootDocker": "true",
       "moby": "true"
-    }
+    },
+    "ghcr.io/devcontainers/features/postgres-client-utils:1": {}
   },
   "customizations": {
     "vscode": {

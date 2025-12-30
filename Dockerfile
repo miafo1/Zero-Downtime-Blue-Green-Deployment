@@ -7,9 +7,12 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+# Install system dependencies for psycopg2
+RUN apt-get update && apt-get install -y libpq-dev gcc \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install any needed packages specified in requirements.txt
-# We create a temporary requirements.txt if one doesn't exist, but best practice is to have one.
-RUN pip install --no-cache-dir flask gunicorn
+RUN pip install --no-cache-dir flask gunicorn psycopg2-binary
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
