@@ -10,14 +10,14 @@ graph TD
     Nginx -->|Proxy Pass| Upstream{Current Color}
     Upstream -->|Active| Blue[Blue Container :5000]
     Upstream -->|Inactive| Green[Green Container :5000]
-    
-    subgraph Docker Network
-    Blue
-    Green
-    end
+    Blue -->|Persist| DB[(PostgreSQL)]
+    Green -->|Persist| DB
 ```
 
-- **Blue/Green Containers**: Two identical Flask applications running different versions/configurations.
+- **Database**: PostgreSQL container stores application state (`visit_count`). Data persists even when switching application versions.
+- **CI/CD**: GitHub Actions workflow (`.github/workflows/main.yml`) automatically tests and builds the application on every push.
+
+## Prerequisites
 - **NGINX**: Acts as the reverse proxy. It routes traffic to the *active* color based on `nginx/conf.d/upstream.conf`.
 - **Zero Downtime**: The `deploy.sh` script validates the new container's health *before* switching traffic. NGINX reloads configuration gracefully without dropping connections.
 
