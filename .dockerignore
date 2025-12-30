@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+.env
+venv
+env
+scripts
+README.md
+task.md
+implementation_plan.md
+walkthrough.md
+docker-compose.yml
